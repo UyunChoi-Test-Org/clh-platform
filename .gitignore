@@ -1,1 +1,87 @@
 node_modules/
+# [Dependencies] 의존성 및 패키지 매니저
+# 프로젝트 내 모든 node_modules를 재귀적으로 제외 (pnpm 환경 최적화)
+node_modules/
+.pnpm-debug.log*
+pnpm-lock.yaml.merge-conflict.*
+
+# [NX] NX 및 빌드 결과물
+# 어디에 위치하든 빌드/캐시 폴더는 모두 제외 (안전 우선)
+dist/
+.nx/cache/
+.nx/workspace-data/
+.nx/project-graph.json   # 로컬에서 생성된 그래프 캐시
+.turbo/                  # 혹시 모를 Turborepo 혼용 대비
+
+# [Build outputs] 프론트엔드 빌드 결과물 (Next.js, Vite, etc.)
+.next/
+out/
+build/
+.cache/
+.parcel-cache/
+.swc/
+
+# [Vite/Vitest] Vite/Vitest
+# 빌드 시 생성되는 임시 타임스탬프 파일 방지
+vite.config.*.timestamp*
+vitest.config.*.timestamp*
+*.tsbuildinfo            # TypeScript 증분 빌드 정보
+
+# [Environment Variables] 환경 변수 및 민감 정보
+# 보안을 위해 모든 경로의 .env 파일을 철저히 제외
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+.env.test
+# .env.sample       # 샘플은 커밋하되 실제 정보는 제외하는 전략
+# .env.sample 파일 안에 실제 DB 비밀번호나 API 키를 적어둔 채로 커밋하지 않도록 주의
+# 반드시 DATABASE_URL="your_db_url_here"와 같이 형식만 남길 것
+
+# [Prisma & Databases] Prisma 및 DB 관련
+# 마이그레이션 이력 및 로컬 DB 파일 제외
+prisma/migrations/
+*.db
+*.db-journal
+/extra-sql/              # 로컬 테스트용 SQL 스크립트 폴더 (예시)
+
+# [Testing] 테스트 결과물
+coverage/
+*.lcov
+.nyc_output/
+.eslintcache
+.stylelintcache
+
+# [IDE / Editors] OS 및 에디터 설정
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json  # 프로젝트 표준 포맷팅 설정을 위해 예외 허용 권장
+.idea/                   # WebStorm, IntelliJ
+*.sln                    # Visual Studio Solution
+*.suo                    # Visual Studio User Options
+*.ntvs* # Node.js Tools for Visual Studio
+*.njsproj                # Node.js Project File
+*.swp                    # Vim temporary files
+
+# [OS / System] 운영체제 생성 파일
+.DS_Store
+Thumbs.db
+
+# [9] 로그 및 임시 파일
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+core.* # 시스템 코어 덤프 파일
+*.cpuprofile             # 성능 측정 프로파일링 파일
+
+# [10] 배포 및 컨테이너 (확장성)
+.vercel/                 # Vercel 배포 캐시
+.serverless/             # Serverless 프레임워크 사용 시
+docker-compose.override.yml # 로컬 전용 도커 설정
+/generated/prisma
